@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    build:                          # DUE TO VOLUME REERENCES TO
+      context: .                    # THE FILE PATH AND CUSTOM DOCKER FILE  #
+      dockerfile: Dockerfile.dev    
+    ports:
+      - "3000:3000"
+    volumes: 
+      - /app/node_modules
+      - .:/app
+  
+  tests:
+    build:  
+      context: .
+      dockerfile: Dockerfile.dev    
+    ports:
+      - "3000:3000"
+    volumes: 
+      - /app/node_modules
+      - .:/app
+    commands: ["npm", "run", "test"]
